@@ -91,7 +91,7 @@ const DynamicIsland: FC = () => {
         }}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}>
-        {isHover ? `Hello ${userInfo?.name || ''}` : '' }
+        {isHover ? 'Hello': '' }
       </div>
   </>;
 }

@@ -69,7 +69,7 @@ const Header: FC = () => {
       </div>
       <DynamicIsland />
       {
-        isInitialized && !userInfo && <Link style={loginStyle} to={`https://id.himupsi.com?url=${location.href}`}>Login</Link>
+        isInitialized ? <Link style={loginStyle} to={`https://id.himupsi.com?url=${location.href}`}>Login</Link> : userInfo?.name
       }
       
     </header>
