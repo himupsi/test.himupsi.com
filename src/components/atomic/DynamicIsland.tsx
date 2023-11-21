@@ -67,13 +67,13 @@ const DynamicIsland: FC = () => {
           clearSetTimeout();
         }, 350));
       }, 500));
-      if (isInitialized) {
-        hello();  
-      }
       setIsInitialized(true);
     });
   }
   useEffect(() => {
+    if (isInitialized) {
+      hello();  
+    }
     document.addEventListener('visibilitychange',  hello);
   }, [])
 
