@@ -5,6 +5,12 @@ export const isInitializedAtom = atom({
   default: false,
 });
 
+export const isFirstTimeAtom = atom({
+  key: 'isFirstTime',
+  default: false,
+});
+
+
 export const userInfoAtom = atom({
   key: 'userInfo',
   default: null as { name: string, avatar: string } | null,

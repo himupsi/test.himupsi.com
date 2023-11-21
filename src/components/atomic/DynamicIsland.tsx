@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { isInitializedAtom, userInfoAtom } from '../../states/atom';
+import { isInitializedAtom, userInfoAtom, isFirstTimeAtom } from '../../states/atom';
 
 const style: React.CSSProperties  = {
   backgroundColor: '#bbb',
@@ -25,6 +25,8 @@ const hoverStyle: React.CSSProperties  = {
 
 const DynamicIsland: FC = () => {
   const [ isInitialized, setIsInitialized] = useRecoilState(isInitializedAtom);
+  const [ isFirstTime, setIsFistTime] = useRecoilState(isFirstTimeAtom);
+
   const [ userInfo, setUserInfo] = useRecoilState(userInfoAtom);
 
   const [isHover, setIsHover] = useState(false);
@@ -50,32 +52,31 @@ const DynamicIsland: FC = () => {
       return;
     };
     setIsHover(false);
-    fetch('https://api.himupsi.com/.netlify/functions/userInfo', {
-      method: 'GET',
-      credentials: 'include'
-    }).then(res => {
-      if (res.ok) {
-        res.json().then(data => {
-          console.log(data);
-          setUserInfo(data);
-        });
-      }
-    }).finally(() => {
+    setTimeoutId(setTimeout(() => {
+      setIsHover(true);
       setTimeoutId(setTimeout(() => {
-        console.log(userInfo);
-        setIsHover(true);
-        setTimeoutId(setTimeout(() => {
-          setIsHover(false);
-          clearSetTimeout();
-        }, 350));
-      }, 500));
-    });
+        setIsHover(false);
+        clearSetTimeout();
+      }, 350));
+    }, 500));
   }
   useEffect(() => {
-    if (!isInitialized) {
-      hello();  
+    if (!isFirstTime) {
+      hello();
+      fetch('https://api.himupsi.com/.netlify/functions/userInfo', {
+        method: 'GET',
+        credentials: 'include'
+      }).then(res => {
+        setIsInitialized(true);
+        if (res.ok) {
+          res.json().then(data => {
+            alert(data.name + '님 안녕하세요!');
+            setUserInfo(data);
+          });
+        }
+      })
     }
-    setIsInitialized(true);
+    setIsFistTime(true);
     document.addEventListener('visibilitychange',  hello);
   }, [])
 
