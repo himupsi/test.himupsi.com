@@ -3,7 +3,7 @@ import DynamicIsland from "./DynamicIsland";
 import { Link } from 'react-router-dom';
 import { visibleRoutes } from "../../Router";
 import { useRecoilState } from 'recoil';
-import { userInfoAtom } from '../../states/atom';
+import {isInitializedAtom, userInfoAtom } from '../../states/atom';
 
 const style: React.CSSProperties  = {
   flex: "0 0 50px",
@@ -50,6 +50,7 @@ const activeMenuStyle: React.CSSProperties  = {
 
 const Header: FC = () => {
   const [ userInfo] = useRecoilState(userInfoAtom);
+  const [ isInitialized] = useRecoilState(isInitializedAtom);
 
   return (
     <header style={style}>
@@ -68,7 +69,7 @@ const Header: FC = () => {
       </div>
       <DynamicIsland />
       {
-        !userInfo && <Link style={loginStyle} to={`https://id.himupsi.com?url=${location.href}`}>Login</Link>
+        isInitialized && !userInfo && <Link style={loginStyle} to={`https://id.himupsi.com?url=${location.href}`}>Login</Link>
       }
       
     </header>
