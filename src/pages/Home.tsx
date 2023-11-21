@@ -47,7 +47,7 @@ const Home: FC = () => {
   return (
     <DefaultLayout>
       <div style={ homeStyle } className="hus-flex-column">
-        힘이 없을까요?
+        힘이 없습니다?
       </div>
     </DefaultLayout>
   );

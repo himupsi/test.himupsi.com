@@ -70,8 +70,10 @@ const DynamicIsland: FC = () => {
         setIsInitialized(true);
         if (res.ok) {
           res.json().then(data => {
-            alert(data.name + '님 안녕하세요!');
             setUserInfo(data);
+            setTimeout(() => {
+              alert(data.name + '님 안녕하세요!');
+            }, 500);
           });
         }
       })
