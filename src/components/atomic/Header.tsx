@@ -47,6 +47,8 @@ const activeMenuStyle: React.CSSProperties  = {
 }
 
 const Header: FC = () => {
+  const [ userInfo] = useRecoilState(userInfoAtom);
+
   return (
     <header style={style}>
       <div onClick={() => { location.href = '/'; }} style={titleStyle}>TEST HIMUPSI</div>
@@ -63,7 +65,10 @@ const Header: FC = () => {
         <Link style={menuStyle} to={`https://not.himupsi.com`}>NOT</Link>
       </div>
       <DynamicIsland />
-      <Link style={loginStyle} to={`https://id.himupsi.com?url=${location.href}`}>Login</Link>
+      {
+        !userInfo && <Link style={loginStyle} to={`https://id.himupsi.com?url=${location.href}`}>Login</Link>
+      }
+      
     </header>
   );
 }

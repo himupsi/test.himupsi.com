@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { isInitializedAtom } from '../../states/atom';
+import { isInitializedAtom, userInfoAtom } from '../../states/atom';
 
 const style: React.CSSProperties  = {
   backgroundColor: '#bbb',
@@ -25,6 +25,8 @@ const hoverStyle: React.CSSProperties  = {
 
 const DynamicIsland: FC = () => {
   const [ isInitialized, setIsInitialized] = useRecoilState(isInitializedAtom);
+  const [ userInfo, setUserInfo] = useRecoilState(userInfoAtom);
+
   const [isHover, setIsHover] = useState(false);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
@@ -41,18 +43,28 @@ const DynamicIsland: FC = () => {
 
 
   const hello = () => {
+
+
     if (document.visibilityState !== 'visible') {
       clearSetTimeout();
       return;
     };
     setIsHover(false);
-    setTimeoutId(setTimeout(() => {
-      setIsHover(true);
+    fetch('https://id.himupsi.com/.netlify/functions/userInfo').then(res => {
+      if (res.ok) {
+        res.json().then(data => {
+          setUserInfo(data);
+        });
+      }
+    }).finally(() => {
       setTimeoutId(setTimeout(() => {
-        setIsHover(false);
-        clearSetTimeout();
-      }, 350));
-    }, 500));
+        setIsHover(true);
+        setTimeoutId(setTimeout(() => {
+          setIsHover(false);
+          clearSetTimeout();
+        }, 350));
+      }, 500));  
+    });
   }
   useEffect(() => {
     if (!isInitialized) {
@@ -71,7 +83,7 @@ const DynamicIsland: FC = () => {
         }}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}>
-        {isHover ? 'Hello' : '' }
+        {isHover ? `Hello ${userInfo?.name || ''}` : '' }
       </div>
   </>;
 }
