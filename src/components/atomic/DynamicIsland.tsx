@@ -71,7 +71,7 @@ const DynamicIsland: FC = () => {
     });
   }
   useEffect(() => {
-    if (isInitialized) {
+    if (!isInitialized) {
       hello();  
     }
     document.addEventListener('visibilitychange',  hello);
