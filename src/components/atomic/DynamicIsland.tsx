@@ -56,6 +56,7 @@ const DynamicIsland: FC = () => {
     }).then(res => {
       if (res.ok) {
         res.json().then(data => {
+          console.log(data);
           setUserInfo(data);
         });
       }
