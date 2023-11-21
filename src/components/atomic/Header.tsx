@@ -2,6 +2,8 @@ import { FC } from "react";
 import DynamicIsland from "./DynamicIsland";
 import { Link } from 'react-router-dom';
 import { visibleRoutes } from "../../Router";
+import { useRecoilState } from 'recoil';
+import { userInfoAtom } from '../../states/atom';
 
 const style: React.CSSProperties  = {
   flex: "0 0 50px",
