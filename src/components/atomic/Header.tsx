@@ -17,7 +17,7 @@ const titleStyle: React.CSSProperties  = {
   fontSize: '30px',
   color: '#999',
   fontWeight: 500,
-  flex: '0 0 150px',
+  flex: '0 0 220px',
   cursor: 'pointer',
 }
 
@@ -60,8 +60,8 @@ const Header: FC = () => {
             }} key={route.path}>{route.name}..</Link>
           })
         }
+        <Link style={menuStyle} to={`https://not.himupsi.com`}>NOT</Link>
       </div>
-      <Link style={menuBarStyle} to={`https://not.himupsi.com`}>NOT</Link>
       <DynamicIsland />
       <Link style={loginStyle} to={`https://id.himupsi.com?url=${location.href}`}>Login</Link>
     </header>
