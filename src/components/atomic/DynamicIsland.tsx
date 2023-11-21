@@ -62,6 +62,7 @@ const DynamicIsland: FC = () => {
       }
     }).finally(() => {
       setTimeoutId(setTimeout(() => {
+        console.log(userInfo);
         setIsHover(true);
         setTimeoutId(setTimeout(() => {
           setIsHover(false);
@@ -76,7 +77,7 @@ const DynamicIsland: FC = () => {
     }
     setIsInitialized(true);
     document.addEventListener('visibilitychange',  hello);
-  }, [userInfo])
+  }, [])
 
   return <>
       <div className="hus-sticky"
