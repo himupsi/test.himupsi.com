@@ -50,7 +50,10 @@ const DynamicIsland: FC = () => {
       return;
     };
     setIsHover(false);
-    fetch('https://api.himupsi.com/.netlify/functions/userInfo').then(res => {
+    fetch('https://api.himupsi.com/.netlify/functions/userInfo', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(res => {
       if (res.ok) {
         res.json().then(data => {
           setUserInfo(data);
