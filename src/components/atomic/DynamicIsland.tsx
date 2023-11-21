@@ -68,15 +68,15 @@ const DynamicIsland: FC = () => {
           clearSetTimeout();
         }, 350));
       }, 500));
-      setIsInitialized(true);
     });
   }
   useEffect(() => {
     if (!isInitialized) {
       hello();  
     }
+    setIsInitialized(true);
     document.addEventListener('visibilitychange',  hello);
-  }, [])
+  }, [userInfo])
 
   return <>
       <div className="hus-sticky"
